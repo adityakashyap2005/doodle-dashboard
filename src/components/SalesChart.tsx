@@ -11,9 +11,10 @@ interface SalesChartProps {
 
 const SalesChart = ({ data }: SalesChartProps) => {
   return (
-    <div className="bg-card rounded-2xl p-6 shadow-md border-2 border-border card-hover">
-      <h2 className="text-xl font-bold text-foreground mb-4">Sales Overview</h2>
-      <ResponsiveContainer width="100%" height={300}>
+    <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-border/50 card-hover relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-50"></div>
+      <h2 className="text-xl font-bold text-foreground mb-4 relative z-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Sales Overview</h2>
+      <ResponsiveContainer width="100%" height={300} className="relative z-10">
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
           <XAxis 

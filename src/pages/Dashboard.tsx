@@ -76,12 +76,12 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen p-4 md:p-8">
+    <div className="min-h-screen p-4 md:p-8 bg-gradient-to-br from-background via-background to-muted/20">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <header className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+        <header className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4 animate-fade-in-up">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
               Placement Dashboard
             </h1>
             <p className="text-muted-foreground">
@@ -91,14 +91,14 @@ const Dashboard = () => {
           <Button 
             onClick={handleLogout}
             variant="outline"
-            className="rounded-xl border-2 hover:bg-destructive hover:text-destructive-foreground hover:border-destructive"
+            className="rounded-xl border-2 hover:bg-destructive hover:text-destructive-foreground hover:border-destructive transition-all duration-300 hover:scale-105"
           >
             Logout
           </Button>
         </header>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           <DashboardCard
             title="Total Sales"
             value={`$${totalSales.toLocaleString()}`}
@@ -134,12 +134,14 @@ const Dashboard = () => {
         </div>
 
         {/* Chart */}
-        <div className="mb-8">
+        <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <SalesChart data={salesData} />
         </div>
 
         {/* Transactions Table */}
-        <TransactionsTable transactions={transactions} />
+        <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <TransactionsTable transactions={transactions} />
+        </div>
 
         {isInMockMode() && (
           <p className="text-center text-xs text-muted-foreground mt-6">
