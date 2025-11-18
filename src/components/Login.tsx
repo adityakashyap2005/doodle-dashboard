@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { supabase, validateMockCredentials, isInMockMode } from '@/lib/supabaseClient';
+import { validateMockCredentials, isInMockMode } from '@/lib/supabaseClient';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('viewer@vite.co.in');
+  const [password, setPassword] = useState('pass123');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -18,38 +18,20 @@ const Login = () => {
     setLoading(true);
 
     try {
-      if (isInMockMode()) {
-        // Mock mode validation
-        const result = validateMockCredentials(email, password);
-        if (result.success && result.user) {
-          // Store mock session
-          localStorage.setItem('session_token', JSON.stringify({
-            user: result.user,
-            token: 'mock-token-' + Date.now()
-          }));
-          navigate('/dashboard');
-        } else {
-          setError('Invalid credentials');
-        }
+      // Validate with mock credentials
+      const result = validateMockCredentials(email, password);
+      if (result.success && result.user) {
+        localStorage.setItem('session_token', JSON.stringify({
+          user: result.user,
+          token: 'mock-token-' + Date.now()
+        }));
+        navigate('/dashboard');
       } else {
-        // Supabase authentication
-        const { data, error: authError } = await supabase!.auth.signInWithPassword({
-          email,
-          password
-        });
-
-        if (authError) {
-          setError('Invalid credentials');
-        } else if (data.session) {
-          localStorage.setItem('session_token', JSON.stringify({
-            user: data.user,
-            token: data.session.access_token
-          }));
-          navigate('/dashboard');
-        }
+        setError('Invalid credentials');
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
+      console.error('Login error:', err);
     } finally {
       setLoading(false);
     }
