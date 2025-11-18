@@ -1,73 +1,176 @@
-# Welcome to your Lovable project
+# Placement Dashboard
 
-## Project info
+A playful, doodle-inspired sales and inventory dashboard built with React, Vite, TailwindCSS, and Supabase.
 
-**URL**: https://lovable.dev/projects/fa32c006-5c13-41e5-a810-43abc84ca061
+## Features
 
-## How can I edit this code?
+- 🎨 **Doodle-inspired UI** with soft pastels and playful animations
+- 📱 **Fully responsive** - works beautifully on mobile and desktop
+- 🔐 **Authentication** with email/password
+- 📊 **Interactive charts** using Recharts
+- 📋 **Transaction tracking** with sortable tables
+- 🌐 **Mock mode** - runs without Supabase setup
+- ♿ **Accessible** with semantic HTML and proper ARIA labels
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **React** (Vite)
+- **TypeScript**
+- **TailwindCSS** for styling
+- **Recharts** for data visualization
+- **Supabase** for backend (optional)
+- **React Router** for navigation
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/fa32c006-5c13-41e5-a810-43abc84ca061) and start prompting.
+## Quick Start
 
-Changes made via Lovable will be committed automatically to this repo.
+### Installation
 
-**Use your preferred IDE**
+```bash
+# Install dependencies
+npm install
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Run in development mode
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The app will open at `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Mock Mode (Default)
 
-**Use GitHub Codespaces**
+By default, the app runs in **mock mode** without requiring Supabase setup. Use these demo credentials:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- **Email:** viewer@vite.co.in
+- **Password:** pass123
 
-## What technologies are used for this project?
+Mock mode uses local JSON data for sales and transactions.
 
-This project is built with:
+### Supabase Setup (Optional)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+To use Supabase backend:
 
-## How can I deploy this project?
+1. Create a Supabase project at [supabase.com](https://supabase.com)
+2. Run the SQL in `seed.sql` to create tables and insert sample data
+3. Create a `.env` file in the project root:
 
-Simply open [Lovable](https://lovable.dev/projects/fa32c006-5c13-41e5-a810-43abc84ca061) and click on Share -> Publish.
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-## Can I connect a custom domain to my Lovable project?
+4. Restart the dev server
 
-Yes, you can!
+The app will automatically detect Supabase credentials and switch from mock mode.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Force Mock Mode
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+To explicitly run in mock mode even with Supabase credentials:
+
+```env
+VITE_MOCK=true
+```
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── Login.tsx              # Authentication page
+│   ├── DashboardCard.tsx      # Summary stat cards
+│   ├── SalesChart.tsx         # Line chart component
+│   └── TransactionsTable.tsx  # Transaction list table
+├── pages/
+│   ├── Dashboard.tsx          # Main dashboard page
+│   └── NotFound.tsx           # 404 page
+├── lib/
+│   └── supabaseClient.ts      # Supabase client & mock data
+└── App.tsx                    # Routes configuration
+```
+
+## Features Overview
+
+### Authentication
+- Email/password login
+- Session management via localStorage
+- Mock credentials for demo
+- Automatic redirect after login/logout
+
+### Dashboard
+- **Summary Cards**: Total Sales, Total Orders, Inventory Count
+- **Sales Chart**: Interactive line chart showing monthly sales (Jan-Jun)
+- **Transactions Table**: Recent transactions with hover effects
+
+### Responsive Design
+- Mobile-first approach
+- Cards stack vertically on small screens
+- Grid layout on tablets and desktop
+- Scrollable table on mobile
+
+## Security Notes
+
+⚠️ **For Demo Purposes Only**
+
+This project uses plaintext passwords for demonstration. In production:
+- Use Supabase Auth with proper hashing
+- Enable Row Level Security (RLS)
+- Use environment variables for secrets
+- Implement HTTPS
+
+## Database Schema
+
+See `seed.sql` for the complete schema. Tables include:
+- `users` - User credentials
+- `sales` - Monthly sales data
+- `transactions` - Individual transaction records
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Run dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Customization
+
+### Colors
+Edit design tokens in `src/index.css`:
+- `--primary`: Soft coral/peach (15 85% 65%)
+- `--secondary`: Mint green (160 55% 70%)
+- `--accent`: Soft purple (270 50% 75%)
+
+### Mock Data
+Edit mock data in `src/lib/supabaseClient.ts`:
+- `mockSalesData`: Monthly sales figures
+- `mockTransactions`: Transaction records
+- `mockUsers`: Login credentials
+
+## Accessibility
+
+- Semantic HTML elements
+- Proper ARIA labels for forms
+- Keyboard navigation support
+- Color contrast ratios meet WCAG standards
+- Focus-visible states on interactive elements
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## License
+
+MIT License - feel free to use this project for learning or as a template for your own dashboards!
+
+## Credits
+
+Built with ❤️ using Lovable
